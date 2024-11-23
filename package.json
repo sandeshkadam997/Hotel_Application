@@ -1,12 +1,12 @@
 {
-  "name": "node_tutorial",
+  "name": "Hotel-Application",
   "version": "1.0.0",
-  "description": "its a nodejs tutorial by prince",
+  "description": "its a hotel application project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "prince kumar",
+  "author": "sandesh Kadam",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
