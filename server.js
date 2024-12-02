@@ -5,14 +5,14 @@ require('dotenv').config();
 const passport = require('./auth');
 
 const bodyParser = require('body-parser'); 
-app.use(bodyParser.json()); // req.body
+app.use(bodyParser.json()); 
 const PORT = process.env.PORT || 3000;
 
 
-// Middleware Function
+
 const logRequest = (req, res, next) => {
     console.log(`[${new Date().toLocaleString()}] Request Made to : ${req.originalUrl}`);
-    next(); // Move on to the next phase
+    next(); 
 }
 app.use(logRequest);
 
@@ -23,11 +23,11 @@ app.get('/', function (req, res) {
     res.send('Welcome to our Hotel');
 })
 
-// Import the router files
+
 const personRoutes = require('./routes/personRoutes');
 const menuItemRoutes = require('./routes/menuItemRoutes');
 
-// Use the routers
+
 app.use('/person', personRoutes);
 app.use('/menu', menuItemRoutes);
   

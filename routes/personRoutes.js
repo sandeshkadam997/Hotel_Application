@@ -6,12 +6,11 @@ const {jwtAuthMiddleware, generateToken} = require('./../jwt');
 // POST route to add a person
 router.post('/signup', async (req, res) =>{
     try{
-        const data = req.body // Assuming the request body contains the person data
+        const data = req.body
 
-        // Create a new Person document using the Mongoose model
         const newPerson = new Person(data);
 
-        // Save the new person to the database
+       
         const response = await newPerson.save();
         console.log('data saved');
 
@@ -34,13 +33,11 @@ router.post('/signup', async (req, res) =>{
 // Login Route
 router.post('/login', async(req, res) => {
     try{
-        // Extract username and password from request body
-        const {username, password} = req.body;
+          const {username, password} = req.body;
 
-        // Find the user by username
+   
         const user = await Person.findOne({username: username});
 
-        // If user does not exist or password does not match, return error
         if( !user || !(await user.comparePassword(password))){
             return res.status(401).json({error: 'Invalid username or password'});
         }
@@ -52,7 +49,7 @@ router.post('/login', async(req, res) => {
         }
         const token = generateToken(payload);
 
-        // resturn token as response
+      
         res.json({token})
     }catch(err){
         console.error(err);
@@ -90,7 +87,7 @@ router.get('/', jwtAuthMiddleware, async (req, res) =>{
 
 router.get('/:workType', async(req, res)=>{
     try{
-        const workType = req.params.workType; // // Extract the work type from the URL parameter
+        const workType = req.params.workType; 
         if(workType == 'chef' || workType == 'manager' || workType == 'waiter' ){
             const response = await Person.find({work: workType});
             console.log('response fetched');
@@ -106,12 +103,12 @@ router.get('/:workType', async(req, res)=>{
 
 router.put('/:id', async (req, res)=>{
     try{
-        const personId = req.params.id; // Extract the id from the URL parameter
-        const updatedPersonData = req.body; // Updated data for the person
+        const personId = req.params.id; 
+        const updatedPersonData = req.body; 
 
         const response = await Person.findByIdAndUpdate(personId, updatedPersonData, {
-            new: true, // Return the updated document
-            runValidators: true, // Run Mongoose validation
+            new: true,
+            runValidators: true, 
         })
 
         if (!response) {
@@ -128,9 +125,7 @@ router.put('/:id', async (req, res)=>{
 
 router.delete('/:id', async (req, res) => {
     try{
-        const personId = req.params.id; // Extract the person's ID from the URL parameter
-        
-        // Assuming you have a Person model
+        const personId = req.params.id;
         const response = await Person.findByIdAndRemove(personId);
         if (!response) {
             return res.status(404).json({ error: 'Person not found' });

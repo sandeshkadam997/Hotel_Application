@@ -31,7 +31,7 @@ router.get('/', async (req, res) =>{
 
 router.get('/:taste', async (req, res) =>{
     try{
-        const tasteType = req.params.taste; // // Extract the taste type from the URL parameter
+        const tasteType = req.params.taste; 
         if(tasteType == 'sweet' || tasteType == 'sour' || tasteType == 'spicy' ){
             const response = await MenuItem.find({taste: tasteType});
             console.log('response fetched');
@@ -47,12 +47,12 @@ router.get('/:taste', async (req, res) =>{
 
 router.put('/:id', async (req, res)=>{
     try{
-        const menuId = req.params.id; // Extract the id of Menu Item from the URL parameter
-        const updatedMenuData = req.body; // Updated data for the Menu Item
+        const menuId = req.params.id; 
+        const updatedMenuData = req.body; 
 
         const response = await MenuItem.findByIdAndUpdate(menuId, updatedMenuData, {
-            new: true, // Return the updated document
-            runValidators: true, // Run Mongoose validation
+            new: true, 
+            runValidators: true, 
         })
 
         if (!response) {
@@ -69,9 +69,9 @@ router.put('/:id', async (req, res)=>{
 
 router.delete('/:id', async (req, res) => {
     try{
-        const menuId = req.params.id; // Extract the Menu's ID from the URL parameter
+        const menuId = req.params.id;
         
-        // Assuming you have a MenuItem model
+      
         const response = await MenuItem.findByIdAndRemove(menuId);
         if (!response) {
             return res.status(404).json({ error: 'Menu Item not found' });
@@ -84,5 +84,5 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-// comment added for testing purposes
+
 module.exports = router;
